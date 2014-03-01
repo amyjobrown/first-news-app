@@ -30,6 +30,9 @@
     		</tr>
     	{% endfor %}
     	</table>
+
+        <!-- Tell the program you are not using html, but a different language using the script tag. Tell Leaflet you want to use a map and refer to the div you created above so that it knows where you want to put it. To fill in the points (streets, etc.), use open street maps. Starting with "var data," you're telling Leaflet where to pull the data using geojson. Some of it is boilerplate Leaflet such as features[]. The whole script added at end of html file because the file is loaded top to bottom. Tip: Javascript will break if there is an extra "," at the end of a .csv. Reason the loop says if not loop.last add comma but if it is then don't add the comma. --> 
+
         <script type="text/javascript">
             var map = L.map('map').setView([34.055, -118.35], 9);
             var mapquestLayer = new L.TileLayer('http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
@@ -46,6 +49,7 @@
                         "type": "Feature",
                         "properties": {
                             "full_name": "{{ obj.full_name }}",
+                            "age": "{{ obj.age }}",
                             "id": "{{ obj.id }}"
                         },
                         "geometry": {
@@ -59,7 +63,7 @@
             var dataLayer = L.geoJson(data, {
                 onEachFeature: function(feature, layer) {
                     layer.bindPopup(
-                        '<a href="' + feature.properties.id + '/">' + feature.properties.full_name + '</a>'
+                        '<a href="' + feature.properties.id + '/">' + feature.properties.full_name + ", " + feature.properties.age + '"</a>'
                         );
                 }
             });

@@ -3,6 +3,9 @@ from flask import Flask
 from flask import render_template
 app = Flask(__name__)
 
+# Python library has "DictReader" that creates the dictonary for the columns
+# in your spreadsheet.
+
 csv_path = './static/la-riots-deaths.csv'
 csv_obj = csv.DictReader(open(csv_path, 'r'))
 csv_list = list(csv_obj)
